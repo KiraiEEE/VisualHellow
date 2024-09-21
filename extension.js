@@ -21,28 +21,23 @@ function activate(context) {
 		const document = editor.document;
 		const selectedText = document.getText(selection);
 		if(selectedText.trim()){
-			//add console log after current line 
 		editor.edit(editorBuilder => {
 		const currentLine = selection.start.line;
 		const currentLineText = document.lineAt(currentLine).text;
-
 		const endOfCurrentLine = new vscode.Position(
 			currentLine,
 			currentLineText.length
 		)
 		const consoleLog = `console.log(\`${selectedText}:\`, ${selectedText});`;
-
-		
-		editorBuilder.insert(endOfCurrentLine,`\n${consoleLog}`)
-
+		const matchResult = currentLineText.match(/^\s*/);
+		const indentLength = matchResult ? matchResult[0].length : 0;
+		const indentationString = ' '.repeat(indentLength);
+		editorBuilder.insert(endOfCurrentLine,`\n${indentationString}${consoleLog}`)
 		});
+		}else{
+			vscode.window.showErrorMessage("No Variable Selected");
 		}
-
 		}
-
-
-		
-
 
 
 	});

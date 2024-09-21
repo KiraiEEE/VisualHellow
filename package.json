@@ -19,7 +19,7 @@
     "keybindings":[
       {
         "command": "visualhellow.addLog",
-        "key": "ctrl+alt+shift+x",
+        "key": "ctrl+shift+x",
         "when": "editorTextFocus && editorLangId == javascript"
       }
     ]
